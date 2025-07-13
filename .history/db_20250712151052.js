@@ -1,0 +1,21 @@
+const mongoose = require("mongoose");
+
+// mongodb URI 
+const MONGODB_URI = "mongodb://localhost:27017/hotels"
+
+// set up MongoDB connection 
+mongoose.connect(MONGODB_URI);
+
+
+
+const db = mongoose.connection;
+
+// add event listener to see mongodb is added or not 
+db.on("error", (err) => {
+    console.error("MongoDB connection error:", err);
+});
+
+
+// Export the database connection
+
+module.exports = db;
