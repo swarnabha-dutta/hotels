@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
 // mongodb URI 
-const MONGODB_URI = "mongodb://localhost:27017/hotels"
+// const MONGODB_URI_LOCAL= process.env.MONGODB_URI_LOCAL
+const DB_URL = process.env.MONGODB_URI;// set up MongoDB connection
 
-// set up MongoDB connection 
-mongoose.connect(MONGODB_URI);
+mongoose.connect(DB_URL);
 
 
 

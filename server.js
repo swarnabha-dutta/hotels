@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const db = require('./db.js');
@@ -18,8 +19,8 @@ app.use("/menu", menuRoutes);
 app.get("/", (req, res) => {
     res.send("Welcome to Our Hotel!!");
 });
+const port = process.env.PORT || 3000;
 
-
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log("server is running ");
 })
