@@ -8,11 +8,20 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const personRoutes = require("./routes/person.routes.js");
 const menuRoutes = require("./routes/menu.routes.js");
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+
+// Middleware apply
+const logRequest = (req, res, next) => {
+    console.log(`[${new Date().toLocaleString()}] Request made to :${req.originalUrl}`);
+    next();
+}
+
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use("/person", personRoutes);
-app.use("/menu", menuRoutes);
+app.use(logRequest);
+const port = process.env.PORT || 3000;
 
 
 
@@ -20,7 +29,14 @@ app.use("/menu", menuRoutes);
 app.get("/", (req, res) => {
     res.send("Welcome to Our Hotel!!");
 });
-const port = process.env.PORT || 3000;
+
+
+app.use("/person",  personRoutes);
+app.use("/menu", menuRoutes);
+
+
+
+
 connectDB().then(() => {
     app.listen(port, () => {
         console.log(`🚀 Server is running on port ${port}`);
