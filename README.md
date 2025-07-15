@@ -1,4 +1,4 @@
-# Hotel Management API
+# Hotel Management APP
 
 A Node.js RESTful API for managing hotel staff and menu items, built with Express and MongoDB (Mongoose). This project is designed for learning and demonstration purposes, providing endpoints to manage hotel personnel and menu data.
 
