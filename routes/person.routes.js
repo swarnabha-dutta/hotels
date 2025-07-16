@@ -39,7 +39,7 @@ router.get("/", async (req, res) => {
 router.get("/:workType", async (req, res) => {
     try {
         const workType = req.params.workType;
-        if (workType == "Chef" || workType == "Manager" || workType == "Waiter") {
+        if (workType == "Chef" || workType == "Manager" || workType == "Waiter" || workType == "Master Chef") {
             const response = await Person.find({ work: workType });
             console.log("response fetched");
             res.status(200).json(response);

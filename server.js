@@ -2,14 +2,12 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const connectDB = require('./db.js');
-const Person = require("./models/person.model.js");
 const Menu = require("./models/menu.model.js");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const personRoutes = require("./routes/person.routes.js");
 const menuRoutes = require("./routes/menu.routes.js");
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+const passport = require('./middleware/auth.middleware.js');
 
 // Middleware apply
 const logRequest = (req, res, next) => {
@@ -21,18 +19,21 @@ const logRequest = (req, res, next) => {
 app.use(cors());
 app.use(bodyParser.json());
 app.use(logRequest);
+
+
+app.use(passport.initialize());
 const port = process.env.PORT || 3000;
 
 
 
-
-app.get("/", (req, res) => {
+const localAuthenticate = passport.authenticate('local', { session: false });
+app.get("/", localAuthenticate, (req, res) => {//localAuthenticate middleware is applied
     res.send("Welcome to Our Hotel!!");
 });
 
 
-app.use("/person",  personRoutes);
-app.use("/menu", menuRoutes);
+app.use("/person", localAuthenticate, personRoutes);//localAuthenticate middleware is applied
+app.use("/menu", menuRoutes);//localAuthenticate middleware is not applied
 
 
 
